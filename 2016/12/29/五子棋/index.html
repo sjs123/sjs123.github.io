@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="难得清闲，写个迷你五子棋，左手和右手自下233">
+<meta name="description" content="难得清闲，写个迷你五子棋，左手和右手自下233主要分为三个类：主要UI类、棋子类、以及棋盘类。采用单一职责原则，将前端与后端的业务逻辑进行分离，降低耦合度。(还是忘不了老姚的’松耦合’)  //画出棋盘的横向线条for(inti = 0 ;i &amp;lt;= ROW ;i++)  {     g.drawLine(MARGIN,MARGIN +i * GRID_SPAN,MARGIN +COW *GR">
 <meta name="keywords" content="-ncs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="五子棋">
 <meta property="og:url" content="http://yoursite.com/2016/12/29/五子棋/index.html">
 <meta property="og:site_name" content="豆浆@油条">
-<meta property="og:description" content="难得清闲，写个迷你五子棋，左手和右手自下233">
+<meta property="og:description" content="难得清闲，写个迷你五子棋，左手和右手自下233主要分为三个类：主要UI类、棋子类、以及棋盘类。采用单一职责原则，将前端与后端的业务逻辑进行分离，降低耦合度。(还是忘不了老姚的’松耦合’)  //画出棋盘的横向线条for(inti = 0 ;i &amp;lt;= ROW ;i++)  {     g.drawLine(MARGIN,MARGIN +i * GRID_SPAN,MARGIN +COW *GR">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/xiaqi.jpg">
-<meta property="og:updated_time" content="2018-06-26T05:02:38.626Z">
+<meta property="og:updated_time" content="2018-06-27T12:32:19.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="五子棋">
-<meta name="twitter:description" content="难得清闲，写个迷你五子棋，左手和右手自下233">
+<meta name="twitter:description" content="难得清闲，写个迷你五子棋，左手和右手自下233主要分为三个类：主要UI类、棋子类、以及棋盘类。采用单一职责原则，将前端与后端的业务逻辑进行分离，降低耦合度。(还是忘不了老姚的’松耦合’)  //画出棋盘的横向线条for(inti = 0 ;i &amp;lt;= ROW ;i++)  {     g.drawLine(MARGIN,MARGIN +i * GRID_SPAN,MARGIN +COW *GR">
 <meta name="twitter:image" content="http://yoursite.com/images/xiaqi.jpg">
 
 
@@ -322,8 +322,182 @@
       
 
       
-        <p><center>难得清闲，写个迷你五子棋，左手和右手自下233<br><img src="/images/xiaqi.jpg" width="60%" height="60%"></center></p>
-
+        <p><center>难得清闲，写个迷你五子棋，左手和右手自下233<br><img src="/images/xiaqi.jpg" width="60%" height="60%"><br><br>主要分为三个类：主要UI类、棋子类、以及棋盘类。采用单一职责原则，将前端与后端的业务逻辑进行分离，降低耦合度。<br><br>(还是忘不了老姚的’松耦合’)</center></p>
+<blockquote>
+<p>//画出棋盘的横向线条<br><code>for(inti = 0 ;i &lt;= ROW ;i++)
+ {
+    g.drawLine(MARGIN,MARGIN +i * GRID_SPAN,MARGIN +COW *GRID_SPAN,MARGIN +i * GRID_SPAN); 
+}</code><br>//画出棋盘的纵向线条<br><code>for(inti = 0;i &lt;= COW ;i++) 
+{     
+    g.drawLine(MARGIN +i *GRID_SPAN,MARGIN,MARGIN +i * GRID_SPAN,MARGIN +ROW *GRID_SPAN);
+ }</code><br>//通过鼠标的坐标换算成索引下标<br><code>xIndex = (e.getX() -MARGIN +GRID_SPAN/2)/GRID_SPAN ;yIndex = (e.getY() -MARGIN +GRID_SPAN/2)/GRID_SPAN ;</code><br><code>drawX = (int)((e.getX() - MARGIN +GRID_SPAN/2)/GRID_SPAN)*GRID_SPAN + MARGIN ;drawY = (int)((e.getY() -MARGIN +GRID_SPAN/2)/GRID_SPAN)*GRID_SPAN + MARGIN ;</code><br><a id="more"></a><br>//判断win</p>
+</blockquote>
+<p>`//外层循环遍历棋子数组xIndex的X轴的坐标索引    </p>
+<pre><code>``
+</code></pre><p>for(int i = 0 ; i&lt;=15;i++) {<br>            int count = 0;                                        //每次一纵列要是没有连子，将计数器清0<br>            for(int j=0;j&lt;=15;j++) {                                //内层循环表示遍历棋子数组yIndex的Y轴的坐标索引<br>                if (chess[i][j] !=null &amp;&amp; chess[i][j].getVisited() == 1 &amp;&amp; chess[i][j].getColor() == Color.black) {<br>                    count++;<br>                    if (count == countChess) {                                            //计数器累计到5<br>                        winner =”黑棋胜利！”;<br>                        return true ;    }}<br>                else {count = 0 ;        //不连续时将计数器清空为0}}}<br>`</p>
+<pre><code>    //黑色棋子横向查找 
+    for(int i = 0;i&lt;=15;i++) {
+        int count = 0 ;
+        for(int j=0;j&lt;=15;j++) {
+            if (chess[j][i] != null &amp;&amp; chess[j][i].getVisited() == 1 &amp;&amp; chess[j][i].getColor() == Color.black) {
+            count++;
+            if (count == countChess) {
+                winner =&quot;黑棋胜利！&quot;;
+                return true ;
+                }
+            }
+            else {
+                count = 0 ; 
+            }
+        }
+    }
+    //白色棋子竖向查找
+    for(int i = 0;i&lt;=15;i++) {
+        int count = 0;
+        for(int j=0;j&lt;=15;j++) {
+            if (chess[i][j] !=null &amp;&amp; chess[i][j].getVisited() == 1 &amp;&amp; chess[i][j].getColor() == Color.white) {
+                count++;
+                if (count == countChess) {
+                    winner =&quot;白棋胜利！&quot;;
+                    return true ;
+                }
+            }
+            else {
+                count = 0 ;
+            }
+        }
+    }
+    //白色棋子横向查找
+    for(int i = 0;i&lt;=15;i++) {
+        int count = 0 ;
+        for(int j=0;j&lt;=15;j++) {
+            if (chess[j][i] !=null &amp;&amp; chess[j][i].getVisited() == 1 &amp;&amp; chess[j][i].getColor() == Color.white) {
+                count++;
+                if (count == countChess) {
+                    winner =&quot;白棋胜利！&quot;;
+                    return true ;
+                }
+            }
+            else {
+                count = 0 ;
+            }
+        }
+    }
+    //黑色棋子右上至左下查找(前半部分)
+for(int i = 0 ; i &lt;= 15; i++) {
+        int count = 0 ;
+        for(int j = 0 ;j &lt;= i ; j++) {
+            if (chess[j][i-j] != null &amp;&amp;chess[j][i-j].getVisited() == 1 &amp;&amp; chess[j][i-j].getColor() == Color.black) {
+                count++;
+                if (count == countChess) {
+                    winner =&quot;黑棋胜利！&quot;;
+                    return true;
+                }
+            }
+            else count = 0;
+        }
+    }
+//黑色棋子右上至左下查找(后半部分)
+for(int i = 1 ; i &lt;=15 ; i++){
+    int count = 0 ;
+    for(int j = i ; j&lt;=15; j++) {
+        if (chess[j][15 - j + i ] != null &amp;&amp;chess[j][15 - j + i ].getVisited() == 1 &amp;&amp; chess[j][15 - j + i ].getColor() == Color.black) {
+            count++;
+            if (count == countChess) {
+                winner =&quot;黑棋胜利！&quot;;
+                return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}    
+//白色棋子右上至左下查找（前部分）
+for(int i = 0 ; i &lt;= 15; i++) {
+    int count = 0 ;
+    for(int j = 0 ;j &lt;= i ; j++) {
+        if (chess[j][i-j] != null &amp;&amp;chess[j][i-j].getVisited() == 1 &amp;&amp; chess[j][i-j].getColor() == Color.white) {
+            count++;
+            if (count == countChess) {
+                winner =&quot;白棋胜利！&quot;;
+                return true;
+            }
+        }
+        else count = 0;
+    }
+}
+//白色棋子右上至左下查找(后半部分)
+for(int i = 1 ; i &lt;=15 ; i++){
+    int count = 0 ;
+    for(int j = i ; j&lt;=15; j++) {
+        if (chess[j][15 - j + i ] != null &amp;&amp;chess[j][15 - j + i ].getVisited() == 1 &amp;&amp; chess[j][15 - j + i ].getColor() == Color.white) {
+        count++;
+            if (count == countChess) {
+            winner =&quot;白棋胜利！&quot;;
+            return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}
+//黑色棋子左上至右下查找（前部分）
+for(int i = 0 ; i &lt;= 15 ; i++ ) {
+    int count = 0 ;
+    for(int j = 0 ; j+i&lt;= 15 ; j++ ) {
+        if (chess[j + i][ j ] != null &amp;&amp;chess[j+i][j].getVisited() == 1 &amp;&amp; chess[j+i][ j ].getColor() == Color.black) {
+            count++;
+            if (count == countChess) {
+                winner =&quot;黑棋胜利！&quot;;
+                return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}
+//黑色棋子左上至右下查找（后部分）
+for(int i = 1 ; i&lt;=15;i++) {
+    int count = 0 ;
+    for(int j = 0; j+i&lt;=15 ;j++) {
+        if (chess[ j ][ j+i ] != null &amp;&amp; chess[ j ][ j+i ].getVisited() == 1 &amp;&amp; chess[ j ][ j+i ].getColor() == Color.black) {
+            count++;    
+            if (count==countChess) {
+                winner =&quot;黑棋胜利！&quot;;
+                return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}
+//白色棋子左上至右下查找（前部分）
+for(int i = 0 ; i &lt;= 15 ; i++ ) {
+    int count = 0 ;
+    for(int j = 0 ; j+i&lt;= 15 ; j++ ) {
+        if (chess[j + i][ j ] != null &amp;&amp;chess[j+i][j].getVisited() == 1 &amp;&amp; chess[j+i][ j ].getColor() == Color.white) {
+            count++;
+            if (count == countChess) {
+                winner =&quot;白棋胜利！&quot;;
+                return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}
+//白色棋子左上至右下查找（后部分）
+for(int i = 1 ; i&lt;=15;i++) {
+    int count = 0 ;
+    for(int j = 0; j+i&lt;=15 ;j++) {
+        if (chess[ j ][ j+i ] != null &amp;&amp; chess[ j ][ j+i ].getVisited() == 1 &amp;&amp; chess[ j ][ j+i ].getColor() == Color.white) {
+            count++;
+            if (count==countChess) {
+                winner =&quot;白棋胜利！&quot;;
+                return true ;
+            }
+        }
+        else count = 0 ;
+    }
+}
+    return false ;
+}`
+</code></pre>
       
     </div>
     

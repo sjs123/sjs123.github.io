@@ -688,10 +688,22 @@
 
       
         
-          
-            <p><center>难得清闲，写个迷你五子棋，左手和右手自下233<br><img src="/images/xiaqi.jpg" width="60%" height="60%"></center></p>
-
-          
+          <p><center>难得清闲，写个迷你五子棋，左手和右手自下233<br><img src="/images/xiaqi.jpg" width="60%" height="60%"><br><br>主要分为三个类：主要UI类、棋子类、以及棋盘类。采用单一职责原则，将前端与后端的业务逻辑进行分离，降低耦合度。<br><br>(还是忘不了老姚的’松耦合’)</center></p>
+<blockquote>
+<p>//画出棋盘的横向线条<br><code>for(inti = 0 ;i &lt;= ROW ;i++)
+ {
+    g.drawLine(MARGIN,MARGIN +i * GRID_SPAN,MARGIN +COW *GRID_SPAN,MARGIN +i * GRID_SPAN); 
+}</code><br>//画出棋盘的纵向线条<br><code>for(inti = 0;i &lt;= COW ;i++) 
+{     
+    g.drawLine(MARGIN +i *GRID_SPAN,MARGIN,MARGIN +i * GRID_SPAN,MARGIN +ROW *GRID_SPAN);
+ }</code><br>//通过鼠标的坐标换算成索引下标<br><code>xIndex = (e.getX() -MARGIN +GRID_SPAN/2)/GRID_SPAN ;yIndex = (e.getY() -MARGIN +GRID_SPAN/2)/GRID_SPAN ;</code><br><code>drawX = (int)((e.getX() - MARGIN +GRID_SPAN/2)/GRID_SPAN)*GRID_SPAN + MARGIN ;drawY = (int)((e.getY() -MARGIN +GRID_SPAN/2)/GRID_SPAN)*GRID_SPAN + MARGIN ;</code><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/12/29/五子棋/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
